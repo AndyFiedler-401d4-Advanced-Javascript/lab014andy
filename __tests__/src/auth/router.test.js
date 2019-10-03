@@ -15,7 +15,13 @@ let users = {
   editor: {username: 'editor', password: 'password', role: 'editor'},
   user: {username: 'user', password: 'password', role: 'user'},
 };
-
+//added demo code stuf////////////////
+let roles = {
+  admin: ['create', 'read', 'update', 'delete', 'generate-key'],
+  editor: ['create', 'read', 'update'],
+  user: ['read'],
+};
+////////////////////////////////////
 beforeAll(async () => {
 });
 
@@ -60,7 +66,13 @@ describe('Auth Router', () => {
             expect(token.capabilities).toBeDefined();
           });
       });
+      it('allows indestructible /key only for admin', () => {
+        let user = users[userType];
 
+        return mockRequest
+          .post('/key')
+          .set('Authorization', `Bearer ${savedToken}`)
+      })
     });
     
   });
